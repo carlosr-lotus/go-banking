@@ -10,7 +10,9 @@ type Account struct {
 }
 
 func (a *Account) Balance() float64 {
-	fmt.Println(a.amount)
+	fmt.Println("******************")
+	fmt.Print("Current balance: ")
+	fmt.Printf("$ %.2f", a.amount)
 	return a.amount
 }
 
@@ -64,6 +66,6 @@ func main() {
 	case 3:
 		acc.Withdraw(150)
 	default:
-		fmt.Println("DEFAULT")
+		fmt.Println("Exiting...")
 	}
 }
