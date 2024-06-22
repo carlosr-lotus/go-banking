@@ -58,8 +58,11 @@ func main() {
 	fmt.Print("Enter your name: ")
 	fmt.Scanln(&owner)
 
-	acc := Account{1, "Lotus", 0, 1234}
+	var password int
+	fmt.Print("Create your account password: ")
+	fmt.Scanln(&password)
 
+	acc := Account{1, owner, 0, password}
 out:
 	for {
 		option := BankOptions()
