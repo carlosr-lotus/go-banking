@@ -68,7 +68,10 @@ out:
 		case 1:
 			acc.Balance()
 		case 2:
-			acc.Deposit(120)
+			var amount float64
+			fmt.Print("Please, insert the amount you wish you to deposit: ")
+			fmt.Scanln(&amount)
+			acc.Deposit(amount)
 		case 3:
 			acc.Withdraw(150)
 		case 4:
