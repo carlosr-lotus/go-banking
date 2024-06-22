@@ -10,9 +10,11 @@ type Account struct {
 }
 
 func (a *Account) Balance() float64 {
-	fmt.Println("******************")
+	fmt.Println("************************")
 	fmt.Print("Current balance: ")
 	fmt.Printf("$ %.2f", a.amount)
+	fmt.Println("\n************************")
+
 	return a.amount
 }
 
@@ -36,10 +38,12 @@ func (a *Account) Withdraw(amount float64) bool {
 
 func BankOptions() int {
 	var option int
-	fmt.Println("Choose option below: ")
+	fmt.Println("\nChoose option below: ")
 	fmt.Println("1. Check balance")
 	fmt.Println("2. Deposit funds")
 	fmt.Println("3. Withdraw funds")
+	fmt.Println("4. Exit")
+
 	fmt.Scanln(&option)
 
 	return option
@@ -56,16 +60,22 @@ func main() {
 
 	acc := Account{1, "Lotus", 0, 1234}
 
-	option := BankOptions()
+out:
+	for {
+		option := BankOptions()
 
-	switch option {
-	case 1:
-		acc.Balance()
-	case 2:
-		acc.Deposit(120)
-	case 3:
-		acc.Withdraw(150)
-	default:
-		fmt.Println("Exiting...")
+		switch option {
+		case 1:
+			acc.Balance()
+		case 2:
+			acc.Deposit(120)
+		case 3:
+			acc.Withdraw(150)
+		case 4:
+			fmt.Println("Exiting app...")
+			break out
+		default:
+			fmt.Println("Please, select a valid option.")
+		}
 	}
 }
