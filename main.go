@@ -10,10 +10,8 @@ type Account struct {
 }
 
 func (a *Account) Balance() float64 {
-	fmt.Println("************************")
 	fmt.Print("Current balance: ")
-	fmt.Printf("$ %.2f", a.amount)
-	fmt.Println("\n************************")
+	fmt.Printf("$%.2f", a.amount)
 
 	return a.amount
 }
@@ -34,6 +32,8 @@ func (a *Account) Withdraw(amount float64) bool {
 
 	a.amount -= amount
 	fmt.Println("Withdraw success!")
+	fmt.Printf("Your new balance is: $%.2f\n", a.amount)
+
 	return true
 }
 
@@ -70,17 +70,23 @@ out:
 
 		switch option {
 		case 1:
+			fmt.Println("************************")
 			acc.Balance()
+			fmt.Println("\n************************")
 		case 2:
 			var amount float64
-			fmt.Print("Please, insert the amount you wish you to deposit: ")
+			fmt.Println("************************")
+			fmt.Print("Please, insert the amount you wish you to deposit: $")
 			fmt.Scanln(&amount)
 			acc.Deposit(amount)
+			fmt.Println("************************")
 		case 3:
 			var amount float64
-			fmt.Print("Please, insert the amount you wish you to withdraw: ")
+			fmt.Println("************************")
+			fmt.Print("Please, insert the amount you wish you to withdraw: $")
 			fmt.Scanln(&amount)
 			acc.Withdraw(amount)
+			fmt.Println("************************")
 		case 4:
 			fmt.Println("Exiting app...")
 			break out
