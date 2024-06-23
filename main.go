@@ -32,6 +32,7 @@ func (a *Account) Withdraw(amount float64) bool {
 		return false
 	}
 
+	a.amount -= amount
 	fmt.Println("Withdraw success!")
 	return true
 }
@@ -76,7 +77,10 @@ out:
 			fmt.Scanln(&amount)
 			acc.Deposit(amount)
 		case 3:
-			acc.Withdraw(150)
+			var amount float64
+			fmt.Print("Please, insert the amount you wish you to withdraw: ")
+			fmt.Scanln(&amount)
+			acc.Withdraw(amount)
 		case 4:
 			fmt.Println("Exiting app...")
 			break out
