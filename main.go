@@ -66,14 +66,8 @@ func BankOptions() int {
 
 func ReturnIcons(icon string, quantity int) string {
 	var formattedIcon string
-	var qttTemp int
-	qttTemp = 0
-	for {
+	for c := 0; c < quantity; c++ {
 		formattedIcon += icon
-		qttTemp += 1
-		if qttTemp == quantity {
-			break
-		}
 	}
 	return formattedIcon
 }
