@@ -64,10 +64,24 @@ func BankOptions() int {
 	return option
 }
 
+func ReturnIcons(icon string, quantity int) string {
+	var formattedIcon string
+	var qttTemp int
+	qttTemp = 0
+	for {
+		formattedIcon += icon
+		qttTemp += 1
+		if qttTemp == quantity {
+			break
+		}
+	}
+	return formattedIcon
+}
+
 func main() {
-	fmt.Println("******************")
+	fmt.Println(ReturnIcons("*", 18))
 	fmt.Println("    GO BANKING    ")
-	fmt.Println("******************")
+	fmt.Println(ReturnIcons("*", 18))
 
 	reader := bufio.NewReader(os.Stdin)
 
@@ -119,20 +133,21 @@ out:
 
 		switch option {
 		case 1:
-			fmt.Println("************************")
+			fmt.Println(ReturnIcons("*", 24))
 			acc.Balance()
-			fmt.Println("\n************************")
+			fmt.Print("\n")
+			fmt.Println(ReturnIcons("*", 24))
 		case 2:
 			var amount float64
-			fmt.Println("************************")
+			fmt.Println(ReturnIcons("*", 24))
 			fmt.Print("Please, insert the amount you wish you to deposit: $")
 			fmt.Scanln(&amount)
 			acc.Deposit(amount)
-			fmt.Println("************************")
+			fmt.Println(ReturnIcons("*", 24))
 		case 3:
 			var amount float64
 			var password int
-			fmt.Println("************************")
+			fmt.Println(ReturnIcons("*", 24))
 			fmt.Printf("To continue, insert your password: ")
 			fmt.Scanln(&password)
 			check := acc.CheckPassword(password)
@@ -141,10 +156,10 @@ out:
 				fmt.Print("Please, insert the amount you wish you to withdraw: $")
 				fmt.Scanln(&amount)
 				acc.Withdraw(amount)
-				fmt.Println("************************")
+				fmt.Println(ReturnIcons("*", 24))
 			} else {
 				fmt.Println("Process interrupted. Wrong password.")
-				fmt.Println("************************")
+				fmt.Println(ReturnIcons("*", 24))
 			}
 		case 4:
 			fmt.Println("Exiting app...")
