@@ -1,6 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
 
 type Account struct {
 	id       int
@@ -14,6 +20,14 @@ func (a *Account) Balance() float64 {
 	fmt.Printf("$%.2f", a.amount)
 
 	return a.amount
+}
+
+func (a *Account) CheckPassword(password int) bool {
+	if password == a.password {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (a *Account) Deposit(amount float64) bool {
@@ -55,13 +69,48 @@ func main() {
 	fmt.Println("    GO BANKING    ")
 	fmt.Println("******************")
 
+	reader := bufio.NewReader(os.Stdin)
+
 	var owner string
 	fmt.Print("Enter your name: ")
 	fmt.Scanln(&owner)
 
 	var password int
-	fmt.Print("Create your account password: ")
-	fmt.Scanln(&password)
+	for {
+		fmt.Print("Create your account password: ")
+		input, err := reader.ReadString('\n')
+
+		if err != nil {
+			fmt.Println("Error when creating your password. Please, try again.")
+			continue
+		}
+
+		input = strings.TrimSpace(input)
+
+		if len(input) != 4 {
+			fmt.Println("Your password must be 4 numbers only. Please, try again.")
+		}
+
+		isValid := true
+		for _, char := range input {
+			if !('0' <= char && char <= '9') {
+				isValid = false
+				break
+			}
+		}
+
+		if isValid {
+			intValue, err := strconv.Atoi(input)
+
+			if err == nil {
+				password = intValue
+				fmt.Printf("Your password is: %d\n", intValue)
+				break
+			}
+		}
+
+		fmt.Println("Error when creating password. Please, try again.")
+	}
 
 	acc := Account{1, owner, 0, password}
 out:
@@ -82,11 +131,21 @@ out:
 			fmt.Println("************************")
 		case 3:
 			var amount float64
+			var password int
 			fmt.Println("************************")
-			fmt.Print("Please, insert the amount you wish you to withdraw: $")
-			fmt.Scanln(&amount)
-			acc.Withdraw(amount)
-			fmt.Println("************************")
+			fmt.Printf("To continue, insert your password: ")
+			fmt.Scanln(&password)
+			check := acc.CheckPassword(password)
+
+			if check {
+				fmt.Print("Please, insert the amount you wish you to withdraw: $")
+				fmt.Scanln(&amount)
+				acc.Withdraw(amount)
+				fmt.Println("************************")
+			} else {
+				fmt.Println("Process interrupted. Wrong password.")
+				fmt.Println("************************")
+			}
 		case 4:
 			fmt.Println("Exiting app...")
 			break out
